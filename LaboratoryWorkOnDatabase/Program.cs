@@ -1,3 +1,6 @@
+using LaboratoryWorkOnDatabase.Data;
+using LaboratoryWorkOnDatabase.Services.TeacherService;
+using Microsoft.EntityFrameworkCore;
 
 namespace LaboratoryWorkOnDatabase
 {
@@ -5,18 +8,18 @@ namespace LaboratoryWorkOnDatabase
     {
         public static void Main(string[] args)
         {
-            var builder = WebApplication.CreateBuilder(args);
+            WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
+            var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
+            builder.Services.AddDbContext<Context>(options => options.UseNpgsql(connectionString));
             builder.Services.AddControllers();
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+            builder.Services.AddScoped<ITeacherService, TeacherService>();
 
-            var app = builder.Build();
+            using WebApplication app = builder.Build();
 
-            // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
                 app.UseSwagger();
@@ -26,7 +29,6 @@ namespace LaboratoryWorkOnDatabase
             app.UseHttpsRedirection();
 
             app.UseAuthorization();
-
 
             app.MapControllers();
 
