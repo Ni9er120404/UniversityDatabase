@@ -8,6 +8,8 @@
 
         public string FormLetter { get; set; } = null!;
 
-        public int? TeacherId { get; set; }
+        public int TeacherId { get; set; }
+
+        public Teacher Teacher { get; set; } = null!;
     }
 }
