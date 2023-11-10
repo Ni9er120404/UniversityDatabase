@@ -1,5 +1,4 @@
 using LaboratoryWorkOnDatabase.Data;
-using LaboratoryWorkOnDatabase.Services.TeacherService;
 using Microsoft.EntityFrameworkCore;
 
 namespace LaboratoryWorkOnDatabase
@@ -10,13 +9,12 @@ namespace LaboratoryWorkOnDatabase
         {
             WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
-            var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+            string? connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
             builder.Services.AddDbContext<Context>(options => options.UseNpgsql(connectionString));
             builder.Services.AddControllers();
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
-            builder.Services.AddScoped<ITeacherService, TeacherService>();
 
             using WebApplication app = builder.Build();
 
