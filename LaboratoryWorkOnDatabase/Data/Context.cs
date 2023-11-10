@@ -9,6 +9,8 @@ namespace LaboratoryWorkOnDatabase.Data
 
         public DbSet<Form> Forms { get; set; }
 
+        public DbSet<People> Peoples { get; set; }
+
         public DbSet<Plan> Plans { get; set; }
 
         public DbSet<Sheet> Sheets { get; set; }
